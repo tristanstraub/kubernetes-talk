@@ -28,27 +28,32 @@
 	<section>
 	  <h3>Living with Kubernetes</h3>
 
+	  <img src="Kubernetes-logo.png"/>
+
 	  <h6>Tristan Straub</h6>
 	</section>
 
 	<section>
 	  <h3>Introduction</h3>
 	  <ul>
-	    <li>kubernetes</li>
-	    <li>6 month project</li>
-	    <li>infrastructure + devops pipeline in first 2 months</li>
-	    <li>just enough to be dangerous</li>
-	    <li>move fast, break things</li>
+	    <li>6 month project with full ci/cd pipeline</li>
+	    <li>personal goal of ubiquitous compute platform</li>
 	  </ul>
 	</section>
 
 	<section>
-	  <h3>trip through the cloud</h3>
+	  <h3>journey to the clouds</h3>
 	  <ul>
-	    <li>vpc/ansible, pets, no docker</li>
-	    <li>elastic beanstalk, cattle, docker</li>
-	    <li>slow deploys</li>
-	    <li>machine per service</li>
+	    <li>0. on premise, painful non-automated deploys</li>
+	    <li>1. Separate dev/ops, orchestrated by hudson</li>
+	    <li>2. elastic beanstalk, cattle, docker
+	      <ul>
+		<li>slow deploys</li>
+		<li>machine per service -- over provisioning</li>
+		<li>scaling isn't quick enough</li>
+	      </ul>
+	    </li>
+	    <li>
 	  </ul>
 	</section>
 
@@ -70,6 +75,17 @@
 	    <li>simple</li>
 	    <li>declarative description of services (hcl -- hashicorp configuration language)</li>
 	    <li>hashicorps other tools: terraform, packer</li>
+	  </ul>
+	</section>
+
+	<section>
+	  <h3>Declarative (data driven)</h3>
+	  <ul>
+	    <li>things we have, to things we want</li>
+	    <li>yaml</li>
+	    <li>hcl</li>
+	    <li>html</li>
+	    <li>make (almost)</li>
 	  </ul>
 	</section>
 
@@ -342,12 +358,25 @@
 	</section>	
 	
 	<section>
-	  <h3>Further reading: service mesh, network policies, rbac, operators for stateful services</h3>
+	  <h3>Further reading</h3>
+	  <li>network policies</li>
+	  <li>service mesh</li>
+	  <li>rbac</li>
+	  <li>operators for stateful services</li>
 	</section>
-	
+
 	<section>
-	  <h3>spinnaker, jenkins, jenkinsx, rancher</h3>
-	</section>	
+	  <h3>Next steps</h3>
+	  <ul>
+	    <li>spinnaker -- orchestration (not a build server)</li>
+	    <li>jenkins, jenkinsx</li>
+	    <li>rancher</li>
+	  </ul>
+	</section>
+
+	<section>
+	  <h3>Thank you!</h3>
+	</section>
       </div>
     </div>
 
