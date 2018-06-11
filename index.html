@@ -120,11 +120,32 @@
 	</section>
 
 	<section>
-	  <h3>dashboard</h3>
-	  <pre>
-	    kubectl proxy
-	    http://localhost/ui
+	  <h3>everything is a container -- docker</h3>
 	  <ul>
+	    <li>isolation: process group, network stack, file system</li>
+	    <li>layered file system</li>
+	    <li>provides executable documentation with the same intent as ansible, puppet, chef.</li>
+	    <li>osx: host port bindings on osx dont work -- but kubernetes!</li>
+	  </ul>
+	</section>
+
+	<section>
+	  <h3>kubectl everything</h3>
+	  <li>kubectl exec -it centos:7 -- /bin/bash</li>
+	  <li>kubectl get nodes</li>
+	  <li>kubectl get pods</li>
+	  <li>kubectl expose...</li>
+	</section>
+
+	<section>
+	  <h3>everything is yaml</h3>
+	  <li>"kubectl apply -f <yaml>" all the things</li>
+	</section>
+
+	<section>
+	  <h3>dashboard</h3>
+	  <ul>
+	    <li>kubectl proxy -> http://localhost:8001/ui</li>
 	    <li>Access to all kubernetes resources</li>
 	    <li>Node monitoring</li>
 	    <li>Deployment monitoring</li>
@@ -132,23 +153,28 @@
 	    <li>Configuration management</li>
 	  </ul>
 	</section>
-	
+
 	<section>
-	  <h3>remote environments</h3>
-	  <ul>
-	    <li>kops (aws)</li>
-	    <li>acs-engine</li>
-	    
-	    <li>EKS</li>
-	    <li>AKS</li>
-	    <li>GCE</li>
-	  </ul>
+	  <img src="ui-dashboard.png"/>
 	</section>
 
 	<section>
 	  <h3>remote environments</h3>
 	  <ul>
 	    <li>kops (aws)</li>
+	    <li>acs-engine</li>
+
+	    <li>EKS</li>
+	    <li>AKS</li>
+	    <li>GCE</li>
+
+	    <li>Rancher -- honourable mention</li>
+	  </ul>
+	</section>
+
+	<section>
+	  <h3>kops (aws)</h3>
+	  <ul>
 	    <li>quick to start</li>
 	    <li>played with spot instances</li>
 	    <li>returning 6 months later, couldn't get it to work as a private cluster.</li>
@@ -165,18 +191,8 @@
 	    <li>multi master</li>
 	    <li>HA for apiserver</li>
 	  </ul>
-	</section>	
+	</section>
 
-	<section>
-	  <h3>Docker</h3>
-	  <ul>
-	    <li>isolation: process group, network stack, file system</li>
-	    <li>layered file system</li>
-	    <li>provides executable documentation with the same intent as ansible, puppet, chef.</li>
-	    <li>osx: host port bindings on osx dont work, but kubernetes!</li>
-	  </ul>
-	</section>	
-	
 	<section>
 	  <h3>docker registry (private)</h3>
 	  <ul>
@@ -184,12 +200,6 @@
 	    <li>azure has multi container repositories</li>
 	  </ul>
 	</section>
-
-	<section>
-	  <h3>everything is yaml</h3>
-	  <ul>
-	  </ul>
-	</section>	
 
 	<section>
 	  <h3>naming deploys (unique)</h3>
@@ -333,40 +343,11 @@
 	
 	<section>
 	  <h3>Further reading: service mesh, network policies, rbac, operators for stateful services</h3>
-	  <ul>
-	    <li></li>
-	  </ul>
 	</section>
 	
 	<section>
 	  <h3>spinnaker, jenkins, jenkinsx, rancher</h3>
-	  <ul>
-	    <li></li>
-	  </ul>
 	</section>	
-	
-	<section>
-	  <h3></h3>
-	  <ul>
-	    <li></li>
-	  </ul>
-	</section>	
-	
-	<section>
-	  <h3></h3>
-	  <ul>
-	    <li></li>
-	  </ul>
-	</section>	
-	
-	<section>
-	  <h3></h3>
-	  <ul>
-	    <li></li>
-	  </ul>
-	</section>	
-	
-	
       </div>
     </div>
 
