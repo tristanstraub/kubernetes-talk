@@ -1,0 +1,173 @@
+* introduction
+
+  - kubernetes
+  - just enough to be dangerous
+  - move fast, break things (saying from friend)
+
+* driven to find ubiquitous distributed computing platform
+
+  - any hardware platform
+  - jvm?
+  - browser?
+  - docker
+
+* consul, nomad agent + nomad server
+
+  - simple
+  - declarative description of services (hcl -- hashicorp configuration language)
+  - hashicorps other tools: terraform, packer
+
+* trip through cloud
+
+  - vpc/ansible, pets, no docker
+  - elastic beanstalk, cattle, docker
+    - slow deploys
+    - machine per service
+
+* docker
+
+  - isolation: process group, network stack, file system
+  - layered file system
+  - provides executable documentation with the same intent as ansible, puppet, chef.
+  - osx: host port bindings on osx dont work, but kubernetes!
+
+* cicd/always tested/promoted builds
+
+  - rails, wiki in 20 minutes, heroku push to deploy
+  - tdd
+  - deploy early, deploy often
+  - master is always deployable
+
+* recent project
+
+  - ci/cd
+  - stateless compute and web services
+  - on premise -> cloud
+  - azure, no availability zones in sydney, and only two fault domains in sydney
+
+* compute options
+
+  - docker swarm (felt too slapped on)
+  - nomad (not enough community support)
+  - kubernetes (supported by large company, moving fast)
+
+* infra options
+
+  - terraform vs ARM
+  - packer
+
+* getting familiar with kubernetes
+
+** local dev, minikube(xhyve)
+
+   - minikube
+   - docker/osx native kubernetes
+   - kubectl expose creates services on local ports.
+
+** kops (aws)
+
+   - quick to start,
+   - played with spot instances 
+   - returning 6 months later, couldn't get it to work as a private cluster.
+
+* acs-engine
+
+  - template engine for azure resource templates (5 minutes to come up)
+  - terraformed external resources
+  - version changes from 1.8.3 with classic networking then to azure CNI 1.8.4+ (own misunderstanding?)
+  - small changes to config are time wasters (often unstable to begin with).
+
+* public master or bastion/vpn
+
+  - decouple VPN from kubernetes network
+  - machines not named uniquely
+  - configuration finds the machines
+
+* subnet design, separation of production/staging.
+
+  - embedding cluster with other resources
+  - ipv4, does kafka/cassandra work with ipv4?
+  - subdivision, VPN, kafka, cassandra, k8s master + agent nodes.
+  - pods are in own private network.
+
+* native load balancers
+
+  - very convenient
+  - internal/external
+
+* public vs private master
+
+  - kops and acs-engine created public master nodes, (with security groups)
+  - acs-engine private cluster only became stable very recently,
+  - could not get kops working as private cluster
+
+* HA clusters
+
+  - multi master
+  - HA for apiserver
+
+* kubectl proxy and the API
+
+  - provided authorized access to kubernetes
+  - used as proxy for data-config from circleci and when locally deploying.
+
+* deploying
+** service abstraction
+
+   - expose pods externally.
+
+** circleci
+
+   - per branch deploys
+   - remote build + deploy
+   - remote build + local deploy (staging -> prod)
+   - data-config: Namespace, ConfigMap, Deployment, Service (not secrets)
+
+** docker registry (private)
+
+   - aws has per container repositories
+   - azure has multi container repositories
+
+** naming deploys (unique)
+
+   - config and deployments uniquely named per deploy.
+   - services deployed once, not uniquely named.
+   - secrets not uniquely named.
+
+** secrets
+
+   - tmpfs
+   - file based, or bring as environment variables.
+   - per namespace
+  
+** memory limits, jvm (kswapd), outage
+
+   - make requests/limits the same
+   - bin packing
+   - deployments distribute evenly
+   - cicd requires space for new pods/containers
+
+** config, how config naming and automatic reloading can hurt
+
+   - naming configs (unique)
+
+** namespaces aren't enough (staging consuming production resources)
+
+   - but are great
+   - separate services
+   - consumer same IP space
+
+* dashboard
+
+  - great tool
+  - kubectl proxy -> localhost:8081/ui
+
+* agent node is a shared resource (memory, cpu, network) (shared living)
+
+* Recommendations:
+
+  - kubernetes is a moving target (deprecated options, new networking options)
+  - needs one full time effective just on kubernetes.
+
+* Further reading: service mesh, network policies, rbac, operators for stateful services
+* spinnaker, jenkins, jenkinsx, rancher

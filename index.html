@@ -26,149 +26,305 @@
     <div class="reveal">
       <div class="slides">
 	<section>
-	  <h1>GraalVM</h1>
-
-	  <h3>Experience report</h3>
+	  <h3>Living with Kubernetes</h3>
 
 	  <h6>Tristan Straub</h6>
-
-	  <h6>Clojure/Melbourne</h6>
-
-	  <h6>10<small><sup>th</sup></small> May, 2018</h6>
 	</section>
 
 	<section>
-	  <h3>Obligatory Safe harbour Declaration</h3>
-	  <p>I do things, and you could do, but don't blame me!</p>
-	</section>
-
-	<section id="what-is-it">
-	  <img src="graalvm.png" width="50%"/>
-	  <small>https://imgur.com/r/ProgrammerHumor/Au02SX4</small>
-	</section>
-
-	<section id="parts">
-	  <h3>What is it made of?</h3>
-
+	  <h3>Introduction</h3>
 	  <ul>
-	    <li><p>Graal byte-code to machine-code compiler</p> <small>JEP 243: Java-Level JVM Compiler Interface [See http://openjdk.java.net/jeps/243]</small></li>
-	    <li><p>Truffel polyglot layer</p> <small>API for creating AST interpreter</small></li>
-
-	    <li><p>SubstrateVM<p><small>Garbage collection + common facilities needed in native images by java applications</small></li>
+	    <li>kubernetes</li>
+	    <li>just enough to be dangerous</li>
+	    <li>move fast, break things (saying from friend)</li>
 	  </ul>
-	</section>
-
-	<section id="parts">
-	  <h3>Where do the parts go?</h3>
-	  <img src="polyglot.jpg"/>
-	  <small>https://image.slidesharecdn.com/polyglotonthejvmwithgraalenglish-170521104613/95/polyglot-on-the-jvm-with-graal-english-14-638.jpg?cb=1495364615</small>
-	</section>
-
-	<section id="tooling">
-	  <h3>What tooling does it provide?</h3>
-
-	  <ul>
-	    <li>java, javac, native-image (uses Graal compiler instead of hotspot)</li>
-	    <li><p>gu (for truffel)</p><small>graal updater (download R, python, ruby)</small></li>
-	    <li><p>mx &amp; ideal graph visualizer (igv) [for development]</p><small>[have yet to get this working]</small></li>
-	    <li><small>http://www.oracle.com/technetwork/oracle-labs/program-languages/downloads/index.html</small></li>
-	  </ul>
-
-
-	</section>
-
-	<section id="why">
-	  <h3>Why?</h3>
-
-	  <ul>
-	    <li>Faster code for free</li>
-	    <li><p>Interop with python/R/etc ecosystem</p>
-	      <small>(e.g. pytorch, tensorflow, numpy, scipy -- in addition to existing JVM ecosystem)</small>
-	    </li>
-	    <li>Smaller disk and memory footprint without JVM</li>
-	  </ul>
-	</section>
-
-	<section id="but-why">
-	  <h3>No, but really, why?</h3>
-	  <img src="futurecrew.gif" width="75%"/>
-	  <h3><p>Because I can!</p> <small>(next time)</small></h3>
-	</section>
-
-	<section id="proof">
-	  <h3>Proof</h3>
-	  <ul>
-	    <li><p>brainfuck truffel interpreter</p><small>https://github.com/cesquivias/bf-graal</small></li>
-	    <li><p>clojure reimplementation of brainfuck truffel interpreter</p><small>https://github.com/tristanstraub/clj-bf-graal</small></li>
-	    <li><p>clojure native executable, and clojure native shared library<p><small>https://github.com/tristanstraub/graal-experiments</small></li>
 	</section>
 
 	<section>
-	  <h6>(Tristan, do this)</h6>
-	  <small>
-	  <pre>
-export JAVA_HOME=/Users/tristanstraub/vendor/graalvm-1.0.0-rc1/Contents/Home
-export PATH=$JAVA_HOME/bin:$PATH
+	  <h3>driven to find ubiquitous distributed computing platform</h3>
+	  <ul>
+	    <li>any hardware platform</li>
+	    <li>jvm?</li>
+	    <li>browser?</li>
+	    <li>docker</li>
+	  </ul>
+	</section>	
 
-which java
-which native-image
+	<section>
+	  <h3>consul, nomad agent + nomad server</h3>
+	  <ul>
+<li>simple</li>
+<li>declarative description of services (hcl -- hashicorp configuration language)</li>
+<li>hashicorps other tools: terraform, packer</li>
+	  </ul>
+	</section>	
 
-# 1. brainfuck -> graalvm
+	<section>
+	  <h3>trip through the cloud</h3>
+	  <ul>
+	    <li>vpc/ansible, pets, no docker</li>
+	    <li>elastic beanstalk, cattle, docker</li>
+	    <li>slow deploys</li>
+	    <li>machine per service</li>
+	  </ul>
+	</section>	
 
-cd /Users/tristanstraub/projects/tristanstraub/docker-graalvm/bf-graal
-mvn package
-./bf examples/hello-world.bf
-./bf examples/mandelbrot.bf
+	<section>
+	  <h3>Docker</h3>
+	  <ul>
+	    <li>isolation: process group, network stack, file system</li>
+	    <li>layered file system</li>
+	    <li>provides executable documentation with the same intent as ansible, puppet, chef.</li>
+	    <li>osx: host port bindings on osx dont work, but kubernetes!</li>
+	  </ul>
+	</section>	
 
-# 2. clj brainfuck -> graalvm [in new terminal with non-graal jdk]
-
-cd /Users/tristanstraub/projects/tristanstraub/docker-graalvm/clj-bf-graal
-boot build
-
-# Run against standard jdk: java -cp $PWD/target/project.jar language.bf ./examples/mandelbrot.bf
-
-# back to graal terminal
-
-java -cp $PWD/target/project.jar -XX:-UseJVMCIClassLoader language.bf ./examples/mandelbrot.bf
-
-# 3. clojure native executable, clojure native shared library, R interop,
-
-/Users/tristanstraub/projects/tristanstraub/docker-graalvm/graal-experiments
-make
-
-# Produces libproject.dylib, (linux: libproject.so), main, project
-
-# Open core.clj in repl, demo "R" interop
-gu -c install org.graalvm.r
-
-boot -i "(require 'cider.tasks)" -d org.clojure/tools.nrepl\:0.2.13 -d refactor-nrepl\:2.4.0-SNAPSHOT -d cider/cider-nrepl\:0.17.0 cider.tasks/add-middleware -m refactor-nrepl.middleware/wrap-refactor -m cider.nrepl/cider-middleware repl -s -H :: wait
-</pre></small></section>
-
-	<section id="useful commands">
-	  <h3>Usefull commands</h3>
-	  <small>
-	    <ul>
-	      <li>readelf -Ws ./libproject.so | grep graal</li>
-	      <li>javac ... -proc:only ... [c/o JSR 269]</li>
-	      <li>/home/tristan/vendor/graalvm-1.0.0-rc1/bin/java -cp $PWD/../clj-graal-bf-lang/target/project.jar:$PWD/target/project.jar -XX:-UseJVMCIClassLoader language.bf ./examples/mandelbrot.bf [switch back to 0.28 graal class loader]</li>
-	      <li>java -jar ~/Downloads/procyon-decompiler-0.5.30.jar language.bf.BFLoopNode | less</li>
-	      <li>export BOOT_JVM_OPTIONS="-Dclojure.compiler.direct-linking=true"</li>
-	      <li>export LD_LIBRARY_PATH=.:$(LD_LIBRARY_PATH)</li>
-	    </ul>
-	  </small>
+	<section>
+	  <h3>cicd/always tested/promoted builds</h3>
+	  <ul>
+	    <li>rails, wiki in 20 minutes, heroku push to deploy</li>
+	    <li>tdd</li>
+	    <li>deploy early, deploy often</li>
+	    <li>master is always deployable</li>
+	  </ul>
 	</section>
 
 	<section>
-	  <h3>Further reading</h3>
-
-	  <small>
+	  <h3>recent project</h3>
 	  <ul>
-	    <li>http://gigasquidsoftware.com/blog/2017/10/22/embedded-interop-between-clojure-r-and-python-with-graalvm/</li>
-	    <li>https://www.innoq.com/en/blog/native-clojure-and-graalvm/</li>
-	    <li>https://zeroturnaround.com/rebellabs/graal-and-truffle-for-polyglot-languages-on-jvm/</li>
-	    <li>http://cesquivias.github.io/blog/2014/10/13/writing-a-language-in-truffle-part-1-a-simple-slow-interpreter/</li>
+	    <li>azure, no availability zones in sydney, and only two fault domains in sydney</li>
+	    <li>ci/cd</li>
+	    <li>stateless compute and web services</li>
+	    <li>on premise -> cloud</li>
 	  </ul>
-	  </small>
+	</section>	
+
+	<section>
+	  <h3>compute options</h3>
+	  <ul>
+<li>docker swarm (felt too slapped on)</li>
+<li>nomad (not enough community support)</li>
+<li>kubernetes (supported by large company, moving fast)</li>
+	  </ul>
+	</section>	
+
+	<section>
+	  <h3>infra options</h3>
+	  <ul>
+	    <li>terraform vs ARM</li>
+	    <li>packer</li>
+	  </ul>
+	</section>	
+
+	<section>
+	  <h3>getting familiar with kubernetes</h3>
+	  <h4>local dev, minikube(xhyve)</h4>
+<li>minikube</li>
+<li>docker/osx native kubernetes</li>
+<li>kubectl expose creates services on local ports.</li>
+	</section>	
+
+	<section>
+	  <h3>kops (aws)</h3>
+	  <ul>
+	    <li>quick to start,</li>
+	    <li>played with spot instances </li>
+	    <li>returning 6 months later, couldn't get it to work as a private cluster.</li>
+	  </ul>
+	</section>	
+
+	<section>
+	  <h3>acs-engine</h3>
+	  <ul>
+	    <li>template engine for azure resource templates (5 minutes to come up)</li>
+	    <li>terraformed external resources</li>
+	    <li>version changes from 1.8.3 with classic networking then to azure CNI 1.8.4+ (own misunderstanding?)</li>
+	    <li>small changes to config are time wasters (often unstable to begin with).</li>
+
+	  </ul>
+	</section>	
+
+	<section>
+	  <h3>public master or bastion/vpn</h3>
+	  <ul>
+	    <li>decouple VPN from kubernetes network</li>
+	    <li>machines not named uniquely</li>
+	    <li>configuration finds the machines</li>
+	  </ul>
+	</section>	
+
+	<section>
+	  <h3>subnet design, separation of production/staging.</h3>
+	  <ul>
+	    <li>embedding cluster with other resources</li>
+	    <li>ipv4, does kafka/cassandra work with ipv4?</li>
+	    <li>subdivision, VPN, kafka, cassandra, k8s master + agent nodes.</li>
+	    <li>pods are in own private network.</li>
+	  </ul>
+	</section>	
+
+	<section>
+	  <h3>native load balancers</h3>
+	  <ul>
+	    <li>very convenient</li>
+	    <li>internal/external</li>
+	  </ul>
+	</section>	
+
+	<section>
+	  <h3>public vs private master</h3>
+	  <ul>
+	    <li>kops and acs-engine created public master nodes, (with security groups)</li>
+	    <li>acs-engine private cluster only became stable very recently,</li>
+	    <li>could not get kops working as private cluster</li>
+	  </ul>
+	</section>	
+
+	<section>
+	  <h3>HA clusters</h3>
+	  <ul>
+	    <li>multi master</li>
+	    <li>HA for apiserver</li>
+	  </ul>
+	</section>	
+	
+	<section>
+	  <h3>kubectl proxy and the API</h3>
+	  <ul>
+<li>provided authorized access to kubernetes</li>
+<li>used as proxy for data-config from circleci and when locally deploying.</li>
+	  </ul>
+	</section>
+	
+	<section>
+	  <h3>service abstraction</h3>
+	  <ul>
+	    <li>expose pods externally.</li>
+	  </ul>
+	</section>
+
+	<section>
+	  <h3>circleci</h3>
+	  <ul>
+	    <li>per branch deploys</li>
+	    <li>remote build + deploy</li>
+	    <li>remote build + local deploy (staging -> prod)</li>
+	    <li>data-config: Namespace, ConfigMap, Deployment, Service (not secrets)</li>
+	  </ul>
+	</section>
+	
+	<section>
+	  <h3>docker registry (private)</h3>
+	  <ul>
+<li>aws has per container repositories</li>
+<li>azure has multi container repositories</li>
+	  </ul>
+	</section>
+	
+	<section>
+	  <h3>naming deploys (unique)</h3>
+	  <ul>
+	    <li>config and deployments uniquely named per deploy.</li>
+	    <li>services deployed once, not uniquely named.</li>
+	    <li>secrets not uniquely named.</li>
+	  </ul>
+	</section>
+
+	<section>
+	  <h3>secrets</h3>
+	  <ul>
+	    <li>tmpfs</li>
+	    <li>file based, or bring as environment variables.</li>
+	    <li>per namespace</li>
+	  </ul>
+	</section>	
+	
+	<section>
+	  <h3>memory limits, jvm (kswapd), outage</h3>
+	  <ul>
+	    <li>make requests/limits the same</li>
+	    <li>bin packing</li>
+	    <li>deployments distribute evenly</li>
+	    <li>cicd requires space for new pods/containers</li>
+	  </ul>
+	</section>	
+	
+	<section>
+	  <h3>config, how config naming and automatic reloading can hurt</h3>
+	  <ul>
+	    <li>naming configs (unique)</li>
+	  </ul>
+	</section>	
+	
+	<section>
+	  <h3>namespaces aren't enough (staging consuming production resources)</h3>
+	  <ul>
+	    <li>but are great</li>
+	    <li>separate services</li>
+	    <li>consumer same IP space</li>
+	  </ul>
+	</section>	
+	
+	<section>
+	  <h3>dashboard</h3>
+	  <ul>
+	    <li>great tool</li>
+	    <li>kubectl proxy -> localhost:8081/ui</li>
+	  </ul>
+	</section>	
+	
+	<section>
+	  <h3>agent node is a shared resource (memory, cpu, network) (shared living)</h3>
+	  <ul>
+	    
+	  </ul>
+	</section>	
+	
+	<section>
+	  <h3>Recommendations</h3>
+	  <ul>
+<li>kubernetes is a moving target (deprecated options, new networking options)</li>
+<li>needs one full time effective just on kubernetes.</li>
+<li>Or, use a managed service</li>
+	  </ul>
+	</section>	
+	
+	<section>
+	  <h3>Further reading: service mesh, network policies, rbac, operators for stateful services</h3>
+	  <ul>
+	    <li></li>
+	  </ul>
+	</section>
+	
+	<section>
+	  <h3>spinnaker, jenkins, jenkinsx, rancher</h3>
+	  <ul>
+	    <li></li>
+	  </ul>
+	</section>	
+	
+	<section>
+	  <h3></h3>
+	  <ul>
+	    <li></li>
+	  </ul>
+	</section>	
+	
+	<section>
+	  <h3></h3>
+	  <ul>
+	    <li></li>
+	  </ul>
+	</section>	
+	
+	<section>
+	  <h3></h3>
+	  <ul>
+	    <li></li>
+	  </ul>
+	</section>	
+	
+	
       </div>
     </div>
 
