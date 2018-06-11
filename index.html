@@ -7,7 +7,7 @@
     <title>reveal.js</title>
 
     <link rel="stylesheet" href="css/reveal.css">
-    <link rel="stylesheet" href="css/theme/sky.css">
+    <link rel="stylesheet" href="css/theme/moon.css">
 
     <!-- Theme used for syntax highlighting of code -->
     <link rel="stylesheet" href="lib/css/zenburn.css">
@@ -35,29 +35,12 @@
 	  <h3>Introduction</h3>
 	  <ul>
 	    <li>kubernetes</li>
+	    <li>6 month project</li>
+	    <li>infrastructure + devops pipeline in first 2 months</li>
 	    <li>just enough to be dangerous</li>
-	    <li>move fast, break things (saying from friend)</li>
+	    <li>move fast, break things</li>
 	  </ul>
 	</section>
-
-	<section>
-	  <h3>driven to find ubiquitous distributed computing platform</h3>
-	  <ul>
-	    <li>any hardware platform</li>
-	    <li>jvm?</li>
-	    <li>browser?</li>
-	    <li>docker</li>
-	  </ul>
-	</section>	
-
-	<section>
-	  <h3>consul, nomad agent + nomad server</h3>
-	  <ul>
-<li>simple</li>
-<li>declarative description of services (hcl -- hashicorp configuration language)</li>
-<li>hashicorps other tools: terraform, packer</li>
-	  </ul>
-	</section>	
 
 	<section>
 	  <h3>trip through the cloud</h3>
@@ -67,25 +50,26 @@
 	    <li>slow deploys</li>
 	    <li>machine per service</li>
 	  </ul>
-	</section>	
+	</section>
 
 	<section>
-	  <h3>Docker</h3>
+	  <h3>driven to find ubiquitous distributed computing platform</h3>
 	  <ul>
-	    <li>isolation: process group, network stack, file system</li>
-	    <li>layered file system</li>
-	    <li>provides executable documentation with the same intent as ansible, puppet, chef.</li>
-	    <li>osx: host port bindings on osx dont work, but kubernetes!</li>
+	    <li>any hardware platform (mobile, tablet, desktop, laptop, watch)</li>
+	    <li>subsets of functionality</li>
+	    <li>jvm?</li>
+	    <li>browser?</li>
+	    <li>docker</li>
+	    <li>file synchronisation, password sync</li>
 	  </ul>
-	</section>	
+	</section>
 
 	<section>
-	  <h3>cicd/always tested/promoted builds</h3>
+	  <h3>consul, nomad agent + nomad server</h3>
 	  <ul>
-	    <li>rails, wiki in 20 minutes, heroku push to deploy</li>
-	    <li>tdd</li>
-	    <li>deploy early, deploy often</li>
-	    <li>master is always deployable</li>
+	    <li>simple</li>
+	    <li>declarative description of services (hcl -- hashicorp configuration language)</li>
+	    <li>hashicorps other tools: terraform, packer</li>
 	  </ul>
 	</section>
 
@@ -98,16 +82,7 @@
 	    <li>on premise -> cloud</li>
 	  </ul>
 	</section>	
-
-	<section>
-	  <h3>compute options</h3>
-	  <ul>
-<li>docker swarm (felt too slapped on)</li>
-<li>nomad (not enough community support)</li>
-<li>kubernetes (supported by large company, moving fast)</li>
-	  </ul>
-	</section>	
-
+	
 	<section>
 	  <h3>infra options</h3>
 	  <ul>
@@ -117,21 +92,68 @@
 	</section>	
 
 	<section>
-	  <h3>getting familiar with kubernetes</h3>
-	  <h4>local dev, minikube(xhyve)</h4>
-<li>minikube</li>
-<li>docker/osx native kubernetes</li>
-<li>kubectl expose creates services on local ports.</li>
-	</section>	
+	  <h3>compute options</h3>
+	  <ul>
+	    <li>docker swarm (felt too slapped on)</li>
+	    <li>nomad (not enough community support)</li>
+	    <li>kubernetes (supported by large company, moving fast)</li>
+	    <li>aws lambda, heroku -- Honourable mentions, uninvestigated</li>
+	  </ul>
+	</section>
+	
+	<section>
+	  <h3>cicd/always tested/promoted builds</h3>
+	  <ul>
+	    <li>rails, wiki in 20 minutes, heroku push to deploy</li>
+	    <li>tdd</li>
+	    <li>deploy early, deploy often</li>
+	    <li>master is always deployable</li>
+	  </ul>
+	</section>
 
 	<section>
-	  <h3>kops (aws)</h3>
+	  <h3>getting familiar with kubernetes -- local environments</h3>
+	  <li>local dev, minikube(xhyve)</li>
+	  <li>minikube</li>
+	  <li>docker/osx native kubernetes</li>
+	  <li>kubectl expose creates services on local ports.</li>
+	</section>
+
+	<section>
+	  <h3>dashboard</h3>
+	  <pre>
+	    kubectl proxy
+	    http://localhost/ui
 	  <ul>
-	    <li>quick to start,</li>
-	    <li>played with spot instances </li>
+	    <li>Access to all kubernetes resources</li>
+	    <li>Node monitoring</li>
+	    <li>Deployment monitoring</li>
+	    <li>Secrets management</li>
+	    <li>Configuration management</li>
+	  </ul>
+	</section>
+	
+	<section>
+	  <h3>remote environments</h3>
+	  <ul>
+	    <li>kops (aws)</li>
+	    <li>acs-engine</li>
+	    
+	    <li>EKS</li>
+	    <li>AKS</li>
+	    <li>GCE</li>
+	  </ul>
+	</section>
+
+	<section>
+	  <h3>remote environments</h3>
+	  <ul>
+	    <li>kops (aws)</li>
+	    <li>quick to start</li>
+	    <li>played with spot instances</li>
 	    <li>returning 6 months later, couldn't get it to work as a private cluster.</li>
 	  </ul>
-	</section>	
+	</section>
 
 	<section>
 	  <h3>acs-engine</h3>
@@ -140,10 +162,69 @@
 	    <li>terraformed external resources</li>
 	    <li>version changes from 1.8.3 with classic networking then to azure CNI 1.8.4+ (own misunderstanding?)</li>
 	    <li>small changes to config are time wasters (often unstable to begin with).</li>
-
+	    <li>multi master</li>
+	    <li>HA for apiserver</li>
 	  </ul>
 	</section>	
 
+	<section>
+	  <h3>Docker</h3>
+	  <ul>
+	    <li>isolation: process group, network stack, file system</li>
+	    <li>layered file system</li>
+	    <li>provides executable documentation with the same intent as ansible, puppet, chef.</li>
+	    <li>osx: host port bindings on osx dont work, but kubernetes!</li>
+	  </ul>
+	</section>	
+	
+	<section>
+	  <h3>docker registry (private)</h3>
+	  <ul>
+	    <li>aws has per container repositories</li>
+	    <li>azure has multi container repositories</li>
+	  </ul>
+	</section>
+
+	<section>
+	  <h3>everything is yaml</h3>
+	  <ul>
+	  </ul>
+	</section>	
+
+	<section>
+	  <h3>naming deploys (unique)</h3>
+	  <ul>
+	    <li>config and deployments uniquely named per deploy.</li>
+	    <li>services deployed once, not uniquely named.</li>
+	    <li>secrets not uniquely named.</li>
+	  </ul>
+	</section>
+
+	<section>
+	  <h3>secrets</h3>
+	  <ul>
+	    <li>tmpfs</li>
+	    <li>file based, or bring as environment variables.</li>
+	    <li>per namespace</li>
+	  </ul>
+	</section>	
+	
+	<section>
+	  <h3>kubectl proxy and the API</h3>
+	  <ul>
+	    <li>provided authorized access to kubernetes</li>
+	    <li>used as proxy for data-config from circleci and when locally deploying.</li>
+	  </ul>
+	</section>
+
+	<section>
+	  <h3>service abstraction</h3>
+	  <ul>
+	    <li>expose pods externally.</li>		
+	    <li>native load balancers -- internal/external</li>
+	  </ul>
+	</section>
+	
 	<section>
 	  <h3>public master or bastion/vpn</h3>
 	  <ul>
@@ -164,14 +245,6 @@
 	</section>	
 
 	<section>
-	  <h3>native load balancers</h3>
-	  <ul>
-	    <li>very convenient</li>
-	    <li>internal/external</li>
-	  </ul>
-	</section>	
-
-	<section>
 	  <h3>public vs private master</h3>
 	  <ul>
 	    <li>kops and acs-engine created public master nodes, (with security groups)</li>
@@ -181,63 +254,47 @@
 	</section>	
 
 	<section>
-	  <h3>HA clusters</h3>
+	  <h3>orchestration</h3>
 	  <ul>
-	    <li>multi master</li>
-	    <li>HA for apiserver</li>
-	  </ul>
-	</section>	
-	
-	<section>
-	  <h3>kubectl proxy and the API</h3>
-	  <ul>
-<li>provided authorized access to kubernetes</li>
-<li>used as proxy for data-config from circleci and when locally deploying.</li>
+	    <li>Complete build and deploy in 60 minutes</li>
+	    <li>Kubernetes + Kafka + Cassandra + Service builds and deploys</li>
+	    <li>Docker based tooling -- cockpit</li>
 	  </ul>
 	</section>
-	
+
 	<section>
-	  <h3>service abstraction</h3>
+	  <h3>cockpit -- tooling</h3>
 	  <ul>
-	    <li>expose pods externally.</li>
+	    <li>azure-cli</li>
+	    <li>packer</li>
+	    <li>terraform</li>
+	    <li>acs-engine</li>
+	    <li>kubectl</li>
+	    <li>helm</li>
+	    <li>docker</li>
+	    <li>jq, socat, netcat, ssh, git, cqlsh, leinigen, clojure</li>
 	  </ul>
 	</section>
 
 	<section>
 	  <h3>circleci</h3>
 	  <ul>
+	    <li>github integration</li>
+	    <li>custom build tooling - orchestrate container builds + deploys</li>
 	    <li>per branch deploys</li>
 	    <li>remote build + deploy</li>
 	    <li>remote build + local deploy (staging -> prod)</li>
 	    <li>data-config: Namespace, ConfigMap, Deployment, Service (not secrets)</li>
-	  </ul>
-	</section>
-	
-	<section>
-	  <h3>docker registry (private)</h3>
-	  <ul>
-<li>aws has per container repositories</li>
-<li>azure has multi container repositories</li>
-	  </ul>
-	</section>
-	
-	<section>
-	  <h3>naming deploys (unique)</h3>
-	  <ul>
-	    <li>config and deployments uniquely named per deploy.</li>
-	    <li>services deployed once, not uniquely named.</li>
-	    <li>secrets not uniquely named.</li>
+	    <li>doesn't work remote with private master (without a tunnel)</li>
 	  </ul>
 	</section>
 
 	<section>
-	  <h3>secrets</h3>
+	  <h3>agent node is a shared resource (memory, cpu, network) (shared living)</h3>
 	  <ul>
-	    <li>tmpfs</li>
-	    <li>file based, or bring as environment variables.</li>
-	    <li>per namespace</li>
+	    
 	  </ul>
-	</section>	
+	</section>
 	
 	<section>
 	  <h3>memory limits, jvm (kswapd), outage</h3>
@@ -247,15 +304,15 @@
 	    <li>deployments distribute evenly</li>
 	    <li>cicd requires space for new pods/containers</li>
 	  </ul>
-	</section>	
-	
+	</section>
+
 	<section>
 	  <h3>config, how config naming and automatic reloading can hurt</h3>
 	  <ul>
 	    <li>naming configs (unique)</li>
 	  </ul>
-	</section>	
-	
+	</section>
+
 	<section>
 	  <h3>namespaces aren't enough (staging consuming production resources)</h3>
 	  <ul>
@@ -264,28 +321,13 @@
 	    <li>consumer same IP space</li>
 	  </ul>
 	</section>	
-	
-	<section>
-	  <h3>dashboard</h3>
-	  <ul>
-	    <li>great tool</li>
-	    <li>kubectl proxy -> localhost:8081/ui</li>
-	  </ul>
-	</section>	
-	
-	<section>
-	  <h3>agent node is a shared resource (memory, cpu, network) (shared living)</h3>
-	  <ul>
-	    
-	  </ul>
-	</section>	
-	
+
 	<section>
 	  <h3>Recommendations</h3>
 	  <ul>
-<li>kubernetes is a moving target (deprecated options, new networking options)</li>
-<li>needs one full time effective just on kubernetes.</li>
-<li>Or, use a managed service</li>
+	    <li>kubernetes is a moving target (deprecated options, new networking options)</li>
+	    <li>needs one full time effective just on kubernetes.</li>
+	    <li>Or, use a managed service</li>
 	  </ul>
 	</section>	
 	
