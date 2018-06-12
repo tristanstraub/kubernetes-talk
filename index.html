@@ -295,6 +295,18 @@
 	    <li>circleci: not with private master</li>
 	    <li>separation of production/staging</li>
 	    <li>IP address space</li>
+	    <li>ssh without agent forwarding
+	    <pre>
+Host bastion
+    HostName $BASTION_IP
+    User $ADMIN_USER
+    IdentityFile $SSH_KEY
+Host cas-*
+    User $ADMIN_USER
+    ProxyCommand ssh -q bastion -W %h:22
+    IdentityFile $SSH_KEY
+	    </pre>
+	    </li>
 	  </ul>
 	</section>
 
@@ -379,11 +391,19 @@ spec:
 	<section>
 	  <h3>custom build tooling</h3>
 	  <ul>
+	    <li>creates remotely:
+	      <ul>
+		<li>Namespaces</li>
+		<li>ConfigMaps</li>
+		<li>Deployments</li>
+		<li>Services</li>
+	      </ul>
+	    </li>
 	    <li>"kubectl proxy" provided authorized access to kubernetes</li>
 	    <li>API instead of "kubectl apply"</li>
 	    <li>one config git repository</li>
 	    <li>Dockerfile in each service repo</li>
-	    <li>created Namespaces, ConfigMaps, Deployments, and Services</li>
+	    
 	  </ul>
 	</section>
 
