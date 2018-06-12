@@ -1,0 +1,30 @@
+- Living with Kubernetes
+- Motivation
+- journey to the cloud
+- ubiquitous distributed computing platform
+- hashicorp: consul, nomad agent + nomad server
+- Declarative (data driven) -- notable!
+- 6 month project -- managed platform
+- Leverage! -- notable!
+- azure
+- infrastructure as code (ancilliary services) -- notable!
+- CI/CD (workflow) -- circleci -- notable!
+- compute infrastructure -- orchestrated
+- Kubernetes (Greek: helmsman, steersmanship, cybernetics, Latin: gubernetes)
+- everything is a container -- docker
+- getting familiar with kubernetes
+- acs-engine
+- cockpit -- everything together
+- Bootstrapping
+- admin ingress: public master, bastion, or vpn
+- dashboard (1 of 2)
+- dashboard (2 of 2)
+- kubectl everything
+- yaml all the things
+- circleci
+- custom build tooling
+- deploys -- resource naming
+- gotchas
+- Observations and recommendations
+- Next steps
+
