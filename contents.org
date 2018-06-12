@@ -12,7 +12,7 @@
 - compute infrastructure -- orchestrated
 - Kubernetes (Greek: helmsman, steersmanship, cybernetics, Latin: gubernetes)
 - everything is a container -- docker
-- getting familiar with kubernetes
+- getting kubernetes deployed
 - acs-engine
 - cockpit -- everything together
 - Bootstrapping
