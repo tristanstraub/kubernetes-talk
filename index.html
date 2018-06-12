@@ -292,7 +292,11 @@
 		<li>ConfigMaps</li>
 		<li>Pods/Containers</li>
 		<li>Deployments</li>
-		<li>Services</li>
+		<li>Services
+		  <ul>
+		    <li>native load balancers -- internal/external</li>
+		  </ul>
+		</li>
 	      </ul>
 	  </ul>
 	</section>
@@ -347,6 +351,7 @@ spec:
 	    <li>early acs-engine: no private clusters</li>
 	    <li>circleci: not with private master</li>
 	    <li>separation of production/staging</li>
+	    <li>IP address space</li>
 	  </ul>
 	</section>
 	
@@ -356,6 +361,7 @@ spec:
 	    <li>provided authorized access to kubernetes</li>
 	    <li>send yaml files</li>
 	    <li>staged docker builds and deploys</li>
+	    <li>one docker registry</li>
 	    <li>config in one repository, for all environments</li>
 	    <li>run tooling on kubernetes (inverse)</li>
 	  </ul>
@@ -374,35 +380,20 @@ spec:
 		<li>per namespace</li>
 	      </ul>
 	    </li>
-	    <li>Namespace, Secrets, ConfigMap, Deployment, Service</li>
+	    <li>staging: Namespace -> Secrets -> ConfigMap -> Deployment -> Service</li>
+	    <li>production: Namespace -> Secrets -> ConfigMap -> Deployment -> Service</li>
 	  </ul>
 	</section>
 
 	<section>
-	  <h3>memory limits, jvm (kswapd), outage</h3>
+	  <h3>gotchas</h3>
 	  <ul>
-	    <li>agent node is a shared resource (memory, cpu, network) (shared living)</li>
-	    <li>make requests/limits the same</li>
-	    <li>bin packing</li>
-	    <li>deployments distribute evenly</li>
-	    <li>cicd requires space for new pods/containers</li>
-	  </ul>
-	</section>
-
-	<section>
-	  <h3>namespaces aren't enough (staging consuming production resources)</h3>
-	  <ul>
-	    <li>but are great</li>
-	    <li>separate services</li>
-	    <li>Load balancers consume</li>
-	  </ul>
-	</section>	
-	
-	<section>
-	  <h3>service abstraction -- networking</h3>
-	  <ul>
-	    <li>expose pods externally.</li>
-	    <li>native load balancers -- internal/external</li>
+	    <li>jvm ignores memory limits</li>
+	    <li>agent node is a shared resource (memory, cpu, network)</li>
+	    <li>requests == limits (kswapd outage)</li>
+	    <li>new deploys require memory</li>
+	    <li>accomodate for machine outage</li>
+	    <li>namespaces aren't enough (staging consuming production resources)</li>
 	  </ul>
 	</section>
 	
@@ -411,9 +402,9 @@ spec:
 	  <ul>
 	    <li>kubernetes is a moving target</li>
 	    <li>many deprecated options</li>
-	    <li>too many service mesh options</li>	    
+	    <li>too many service mesh options</li>
 	  </ul>
-	</section>	
+	</section>
 
 	<section>
 	  <h3>Next steps</h3>
