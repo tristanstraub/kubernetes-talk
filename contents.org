@@ -1,5 +1,5 @@
 - Living with Kubernetes
-- Motivation
+- Motivation for Kubernetes
 - journey to the cloud
 - ubiquitous distributed computing platform
 - hashicorp: consul, nomad agent + nomad server
