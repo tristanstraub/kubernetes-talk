@@ -1,0 +1,126 @@
+kubernetes the hard way sucks.
+deprecated options abound.
+documentation still talks about deprecated options as being the right way.
+
+analogy: 
+
+
+kubernetes documentation describes deprecated command arguments, so
+makes kubernetes from scratch difficult
+
+---
+
+https://github.com/coreos/flannel#flannel:
+
+Platforms like Kubernetes assume that each container (pod) has a unique, routable IP inside the cluster. The advantage of this model is that it removes the port mapping complexities that come from sharing a single host IP.
+Flannel does not control how containers are networked to the host, only how the traffic is transported between hosts. 
+
+----
+(demo fonts)
+
+
+
+recommendations kops (spot prices)/acs-engine/minikube(xhyve?)/osx kubernetes
+osx? do it straight away.
+- ludumdare example,.. use existing tools, then wittle away, instead of building game engine during competition
+- watch operators: for kafka/cassandra
+
+- helm
+- scaling (think about aws autoscaling in eks)
+- kubernetes namespaces
+- the heroku experience, flynn
+- lack of lock in
+
+- time is your best friend until it isn't
+- all about packaging
+- script everything
+- mostly, containers = pods
+---
+
+- getting shit done
+- leverage (tooling in this case)
+- reducing complexity through subdivision (divide and conquer), delegation
+- divide and conquer, generalize, specialize  (cattle not pets = generalize)
+- start high level, gain satisfaction and familiarity, then move lower in the stack.
+- repeatability.. script everything
+
+---
+tools:
+- socat
+- netcat
+- hostaliases
+---
+Introduction
+Motivation
+Journey to kubernetes
+Elements of Kubernetes (living with)
+Future
+Recommendations
+----
+cattle not pets (docker, kubernetes agent nodes)
+control panes
+linkerd/envoy/itsio/conduit/cilium/weave/flannel/calico
+ingress
+networking
+----
+- can't know everything!
+- etcd/consul
+- nomad
+- docker-swarm?
+- docker-compose
+- kops
+- minikube
+- docker/kuberentes osx
+- acs-engine (good but lack of control if things don't work)
+- kubectl vs api
+- private vs public + master load balancers, HA/not HA-
+ deployments
+- circleci + deployments, promoted builds
+- docker registry (shared)
+- config, naming, loading
+- memory request/limits (kswapd)
+- rbac?
+- overlay network (canaries)
+- versions
+- stateful sets
+- operators
+- jvm/container memory 8u131
+- spinnaker, jenkis, jenkinsx
+- scaling -/ agent nodes
+- realisation that kubernetes is just binaries and docker (okay, and networking)
+- be able to rebuild dead cluster.
+- heapster
+- dashboard
+- cloud native load balancers vs ingress (nginx/traefik)
+- agent node is a shared resource (memory, cpu, network)
+- kubenet; ipvs
+- envoy vs istio service mesh
+- networking: where is the traffic coming from/where is it going (i don't know, and maybe i don't care!)
+- accessing external services
+- load balancer/service is the only way in from externally
+- understanding something, what does it do abstractly? how do i create one? how do i destroy one? how do i use a feature i want?
+- ppl using aws kubernetes found kops not flexible enough.
+-----
+who am I?
+the guy that looked forward to seeing the linux kernel compile quicker on newer computers.
+head down, forgetting about what i'm not working on. short term blindness
+-----
+fun part of talks: making analogies: (meme time?)
+
+nucleus analogy/electrons
+dnd analogy?
+forest/chopping down trees
+endless supply of timtams (infinite refill)
+layers of onion, curtains, wizard of oz, wizards and layers of onion all the way down.
+peel back the layers of the onion.
+- enjoy beer without knowing to make it?
+----
+https://github.com/Azure/azure-container-networking/blob/master/docs/acs.md:
+"When you deploy a Kubernetes cluster in ACS, by default it is configured to use a networking plugin called kubenet. With kubenet, nodes and pods are placed on different IP subnets. The nodes’ subnet is an actual Azure VNET subnet, whereas the pods’ subnet is allocated by Kubernetes Azure cloud provider and is not known to the Azure SDN stack. IP connectivity between the two subnets is achieved by configuring user-defined routes and enabling IP-forwarding on all node network interfaces."
+https://jimmysong.io/posts/setting-up-a-kubernetes-cluster-with-vagrant/
+another by hand kubernets install
+https://www.if-not-true-then-false.com/2010/install-virtualbox-with-yum-on-fedora-centos-red-hat-rhel/
+install virtualbox/vagrant on fedora
+https://medium.com/@ApsOps/an-illustrated-guide-to-kubernetes-networking-part-1-d1ede3322727
+"brctl" "ip a" "ifconfig"
+
