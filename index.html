@@ -36,6 +36,7 @@
 	<section>
 	  <h3>Motivation</h3>
 	  <ul>
+	    <li>professional experience</li>
 	    <li>ubiquitous compute platform</li>
 	    <li>industry wide serverless/clustered computing model</li>
 	    <li>6 month project with full ci/cd pipeline
@@ -122,6 +123,7 @@
 	    <li>kafka + cassandra</li>
 	    <li>compute -- intensive data streaming</li>
 	    <li>CI/CD</li>
+	    <li>small team</li>
 	  </ul>
 	</section>
 
@@ -129,26 +131,17 @@
 	  <h3>Leverage! -- notable!</h3>
 	  <h6>Or, how to make an onion</h6>
 
-	  <p><quote>Give me a lever and a place to stand and I will move the earth. - Archimedes (c. 287 BC – c. 212 BC)</quote></p>
+	  <p><quote>"Give me a lever and a place to stand and I will move the earth." - Archimedes (c. 287 BC – c. 212 BC)</quote></p>
 	  
 	  <quote>"If I have seen further it is by standing on the shoulders of Giants." - Isaac Newton, 1675.</quote>
 
 	  <p>
-	    "Grace Hopper recommended .. new programming language .. would use entirely English words" - c. 1949
+	    "Grace Hopper recommended .. new programming language .. would use entirely English words" - c. 1949 (wikipedia)
 	  </p>
 
 	  <quote>Do you hear that Mr Anderson? That is the sound of inevitability - Agent Smith (The Matrix)</quote>
 
 	  <p>collectively weaving trampoline fabric - Tristan, 11:26am Today</p>
-	</section>
-	
-	<section>
-	  <h3>infrastructure as code (ancilliary services) -- notable!</h3>
-	  <ul>
-	    <li>terraform</li>
-	    <li>packer</li>
-	    <li>software defined infrastructure!</li>
-	  </ul>
 	</section>
 
 	<section>
@@ -166,36 +159,56 @@
 	</section>
 
 	<section>
-	  <h3>compute infrastructure -- orchestrated</h3>
+	  <h3>infrastructure as code (ancilliary services) -- notable!</h3>
 	  <ul>
-	    <li>elastic beanstalk (inflexible, reliable)</li>
-	    <li>docker swarm (felt too slapped on)</li>
-	    <li>nomad (not enough community support)</li>
-	    <li>aws lambda, heroku -- Honourable mentions, wrong cloud provider</li>
-	    <li>kubernetes (supported by large company, moving fast)</li>
+	    <li>terraform</li>
+	    <li>packer</li>
+	    <li>software defined infrastructure!</li>
 	  </ul>
 	</section>
-	
+
 	<section>
-	  <h3>CI/CD (workflow) -- notable!</h3>
+	  <h3>CI/CD (workflow) -- circleci -- notable!</h3>
 	  <ul>
-	    <li>effectiveness!</li>
-	    <li>rails, wiki in 20 minutes</li>
 	    <li>heroku push to deploy</li>
 	    <li>tdd</li>
 	    <li>deploy early, deploy often</li>
 	    <li>fail fast</li>
 	    <li>master is always deployable</li>
-	    <li>reduced feedback loop</li>
-	    <li>everything is HA + zero downtime deploys</li>
-	    <li>promoted builds</li>
+	    <li>HA</li>
+	    <li>rails, wiki in 20 minutes</li>	    
 	  </ul>
 	</section>
 
 	<section>
+	  <h3>compute infrastructure -- orchestrated</h3>
+	  <ul>
+	    <li>elastic beanstalk
+	      <ul><li>simple, reliable</li></ul>
+	    </li>
+	    <li>docker swarm
+	      <ul><li>felt too slapped on</li></ul>
+	    </li>
+	    <li>nomad
+	      <ul><li>not enough community support</li></ul>
+	    </li>
+	    <li>aws lambda, heroku
+	      <ul><li>Not azure</li></ul>
+	    </li>
+	    <li>kubernetes
+	      <ul>
+		<li>supported by large company</li>
+		<li>moving fast</li>
+	      </ul>
+	    </li>
+	  </ul>
+	</section>
+		
+	<section>
 	  <h3>Kubernetes (Greek: helmsman, steersmanship, cybernetics, Latin: gubernetes)</h3>
 	  <ul>
 	    <li>Uniform compute layer (like electricity!)</li>
+	    <li>Master + agent nodes</li>
 	    <li>Container orchestration (scheduling, availability)</li>
 	    <li>Network ingress (load balancers)</li>
 	    <li>Attached storage</li>
@@ -221,19 +234,22 @@
 	<section>
 	  <h3>getting familiar with kubernetes</h3>
 	  <ul>
-	    local environments
-	    <ul>
-	      <li>minikube(xhyve)</li>
-	      <li>docker/osx kubernetes</li>
-	    </ul>
-	    <ul>remote environments
-	      <li>kops (aws)
-		<ul>
-		  <li>quick to get started</li>
-		  <li>played with spot instances</li>
-		</ul>
-	      </li>
-	      <li>acs-engine</li>
+	    <li>local environments
+	      <ul>
+		<li>minikube(xhyve)</li>
+		<li>docker/osx kubernetes</li>
+	      </ul>
+	    </li>
+	    <li>remote environments
+	      <ul>
+		<li>kops (aws)
+		  <ul>
+		    <li>quick to get started</li>
+		    <li>played with spot instances</li>
+		  </ul>
+		</li>
+		<li>acs-engine</li>
+	      </ul>
 	    </ul>
 	  </ul>
 	</section>
@@ -259,7 +275,7 @@
 	    <li>acs-engine</li>
 	    <li>kubectl, helm</li>
 	    <li>docker</li>
-	    <li>jq, socat, netcat, ssh, git, cqlsh, leinigen, clojure</li>
+	    <li>jq, socat, netcat, ssh, git, cqlsh, leinigen, clojure, sshuttle</li>
 	  </ul>
 	</section>
 
@@ -273,20 +289,31 @@
 	</section>
 
 	<section>
-	  <h3>dashboard</h3>
+	  <h3>admin ingress: public master, bastion, or vpn</h3>
+	  <ul>
+	    <li>early acs-engine: no private clusters</li>
+	    <li>circleci: not with private master</li>
+	    <li>separation of production/staging</li>
+	    <li>IP address space</li>
+	  </ul>
+	</section>
+
+	<section>
+	  <h3>dashboard (1 of 2)</h3>
 	  
 	  <pre>kubectl proxy</pre>
-
-	  <p>Visit http://localhost:8001/ui</p>
+	  <pre>Visit http://localhost:8001/ui</pre>
 
 	  <img src="ui-dashboard.png"/>	  
 	</section>
 
 	<section>
+	  <h3>dashboard (2 of 2)</h3>
+
 	  <ul>
 	    <li>Access to all kubernetes resources
 	      <ul>
-		<li>Node</li>
+		<li>Nodes</li>
 		<li>Namespaces</li>
 		<li>Secrets</li>
 		<li>ConfigMaps</li>
@@ -303,16 +330,18 @@
 
 	<section>
 	  <h3>kubectl everything</h3>
-	  <li>kubectl exec -it centos:7 -- /bin/bash</li>
-	  <li>kubectl get nodes</li>
-	  <li>kubectl get pods</li>
-	  <li>kubectl expose...</li>
-	  <li>kubectl apply -f yaml-file</li>
+	  <ul>
+	    <li>kubectl exec -it centos:7 -- /bin/bash</li>
+	    <li>kubectl get nodes</li>
+	    <li>kubectl get pods</li>
+	    <li>kubectl expose...</li>
+	    <li>kubectl apply -f yaml-file</li>
+	  </ul>
 	</section>
 
 	<section>
 	  <h3>yaml all the things</h3>
-	  <li>"kubectl apply -f yaml-file"</li>
+	  <p>kubectl apply -f yaml-file</p>
 	  <pre>
 apiVersion: apps/v1 # for versions before 1.9.0 use apps/v1beta2
 kind: Deployment
@@ -341,47 +370,37 @@ spec:
 	  <ul>
 	    <li>github integration</li>
 	    <li>declarative config</li>
+	    <li>builds + pushes docker container</li>
+	    <li>talks to API Server</li>
 	    <li>custom build + deploy tool</li>
 	  </ul>
 	</section>
 
 	<section>
-	  <h3>admin ingress: public master, bastion, or vpn</h3>
+	  <h3>custom build tooling</h3>
 	  <ul>
-	    <li>early acs-engine: no private clusters</li>
-	    <li>circleci: not with private master</li>
-	    <li>separation of production/staging</li>
-	    <li>IP address space</li>
-	  </ul>
-	</section>
-	
-	<section>
-	  <h3>custom build tooling, and kubectl proxy</h3>
-	  <ul>
-	    <li>provided authorized access to kubernetes</li>
-	    <li>send yaml files</li>
-	    <li>staged docker builds and deploys</li>
-	    <li>one docker registry</li>
-	    <li>config in one repository, for all environments</li>
-	    <li>run tooling on kubernetes (inverse)</li>
+	    <li>"kubectl proxy" provided authorized access to kubernetes</li>
+	    <li>API instead of "kubectl apply"</li>
+	    <li>one config git repository</li>
+	    <li>Dockerfile in each service repo</li>
+	    <li>created Namespaces, ConfigMaps, Deployments, and Services</li>
 	  </ul>
 	</section>
 
 	<section>
 	  <h3>deploys -- resource naming</h3>
 	  <ul>
-	    <li>Per deployment unique ConfigMap names (prevent auto reloading race!)</li>
-	    <li>Per github SHA, unique docker image name</li>
-	    <li>Services shared across deploys</li>
-	    <li>Preset secrets, shared across deploys
+	    <li>Namespace -> Secrets -> ConfigMap -> Deployment -> Service</li>
+	    <li>Unique ConfigMap names (prevent race!)</li>
+	    <li>Docker image github SHA or unique tag</li>
+	    <li>Shared service</li>
+	    <li>Shared secrets
 	      <ul>
 		<li>tmpfs</li>
 		<li>file based, or bring as environment variables.</li>
 		<li>per namespace</li>
 	      </ul>
 	    </li>
-	    <li>staging: Namespace -> Secrets -> ConfigMap -> Deployment -> Service</li>
-	    <li>production: Namespace -> Secrets -> ConfigMap -> Deployment -> Service</li>
 	  </ul>
 	</section>
 
@@ -409,11 +428,17 @@ spec:
 	<section>
 	  <h3>Next steps</h3>
 	  <ul>
-	    <li>use kubernetes as a managed service</li>
+	    <li>use kubernetes as a managed service
+	      <ul>
+		<li>EKS</li>
+		<li>AKS</li>
+		<li>GCE</li>
+	      </ul>
+	    </li>
 	    <li>spinnaker -- orchestration (not a build server)</li>
 	    <li>jenkins, jenkinsx</li>
 	    <li>service mesh</li>
-	    <li>Rancher, EKS, AKS, GCE</li>
+	    <li>Rancher</li>
 	    <li>operators for stateful services</li>
 	  </ul>
 	</section>
